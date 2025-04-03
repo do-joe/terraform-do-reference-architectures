@@ -35,3 +35,11 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Test TF Vars file
+test.tfvars
+.terraform.lock.hcl
+
+# IDE Files
+.idea/
+scratch/
