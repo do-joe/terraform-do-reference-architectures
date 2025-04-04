@@ -16,33 +16,6 @@ module "multi_region_vpc" {
   secondary_ip_range = var.secondary_vpc_ip_range
 }
 
-module "primary_inet_gw" {
-  source      = "../../../terraform-do-droplet-internet-gateway"
-  count       = var.inet_gw_count
-  name_prefix = var.name_prefix
-  name_suffix = "-${count.index}"
-  region      = var.primary_region
-  size        = var.inet_gw_size
-  image       = var.inet_gw_image
-  vpc_id      = module.multi_region_vpc.primary_vpc_id
-  ssh_keys    = var.inet_gw_ssh_keys
-  tags        = [var.name_prefix]
-}
-
-module "secondary_inet_gw" {
-  source      = "../../../terraform-do-droplet-internet-gateway"
-  count       = var.inet_gw_count
-  name_prefix = var.name_prefix
-  name_suffix = "-${count.index}"
-  region      = var.secondary_region
-  size        = var.inet_gw_size
-  image       = var.inet_gw_image
-  vpc_id      = module.multi_region_vpc.secondary_vpc_id
-  ssh_keys    = var.inet_gw_ssh_keys
-  tags        = [var.name_prefix]
-}
-
-
 resource "digitalocean_kubernetes_cluster" "primary_cluster" {
   name                             = "${var.name_prefix}-${var.primary_region}"
   tags                             = [var.name_prefix]

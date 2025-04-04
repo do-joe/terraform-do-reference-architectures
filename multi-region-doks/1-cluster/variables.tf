@@ -30,7 +30,6 @@ variable "primary_service_ip_range" {
   type        = string
 }
 
-
 variable "secondary_vpc_ip_range" {
   description = "CIDR notation for subnet used for secondary region VPC"
   type        = string
@@ -47,29 +46,6 @@ variable "secondary_service_ip_range" {
   description = "CIDR notation for the subnet used for service IPs in the secondary region"
   type        = string
 }
-
-variable "inet_gw_count" {
-  description = "Number of Inet GW droplet"
-  type        = number
-  default     = 0
-}
-
-variable "inet_gw_size" {
-  description = "DO size slug used for the Inet GW droplet"
-  type        = string
-}
-
-variable "inet_gw_image" {
-  description = "DO image slug to run on the Inet GW droplet, must be ubuntu based."
-  type        = string
-}
-
-variable "inet_gw_ssh_keys" {
-  description = "A list of SSH key IDs or fingerprints to enable on the Inet GW droplet in the format [12345, 123456]"
-  type        = list(number)
-  default = []
-}
-
 
 variable "doks_version" {
   description = "Version to use for DOKS clusters"
