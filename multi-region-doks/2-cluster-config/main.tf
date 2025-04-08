@@ -17,7 +17,7 @@ data "digitalocean_vpc" "primary" {
 }
 
 module "primary_igw" {
-  source      = "../../../terraform-do-droplet-internet-gateway"
+  source      = "git@github.com:do-joe/terraform-do-droplet-internet-gateway.git"
   name_prefix = var.name_prefix
   igw_count = var.igw_count
   region      = var.primary_region
@@ -29,12 +29,18 @@ module "primary_igw" {
   doks_cluster_name = "${var.name_prefix}-${var.primary_region}"
 }
 
+module "primary-lb" {
+  source = "git@github.com:do-joe/terraform-do-doks-lbaas.git"
+  doks_cluster_name = "${var.name_prefix}-${var.primary_region}"
+  lb_size_unit = 2
+}
+
 data "digitalocean_vpc" "secondary" {
   name = "${var.name_prefix}-${var.secondary_region}"
 }
 
 module "secondary_igw" {
-  source      = "../../../terraform-do-droplet-internet-gateway"
+  source      = "git@github.com:do-joe/terraform-do-droplet-internet-gateway.git"
   name_prefix = var.name_prefix
   igw_count = var.igw_count
   region      = var.secondary_region
@@ -46,3 +52,8 @@ module "secondary_igw" {
   doks_cluster_name = "${var.name_prefix}-${var.secondary_region}"
 }
 
+module "secondary-lb" {
+  source = "git@github.com:do-joe/terraform-do-doks-lbaas.git"
+  doks_cluster_name = "${var.name_prefix}-${var.secondary_region}"
+  lb_size_unit = 2
+}

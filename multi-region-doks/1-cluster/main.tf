@@ -8,7 +8,7 @@ terraform {
 }
 
 module "multi_region_vpc" {
-  source             = "../../../terraform-do-multi-region-vpc"
+  source             = "git@github.com:do-joe/terraform-do-multi-region-vpc.git"
   name_prefix        = var.name_prefix
   primary_region     = var.primary_region
   primary_ip_range   = var.primary_vpc_ip_range
